@@ -72,12 +72,15 @@ class Niveau:
 		carrenoir = pygame.transform.scale(carrenoir,[30,30])
 		for couple in listepos:
 			fenetre.blit(carrenoir,couple)
+	
+	
+		
 		
 			
 			
 class Perso:
 	"""Classe permettant de créer un personnage"""
-	def __init__(self, droite, gauche, haut, bas, niveau):
+	def __init__(self, droite, gauche, haut, bas, niveau,mou):
 		#Sprites du personnage
 		self.droite = pygame.image.load("droite.png").convert_alpha()
 		self.droite = pygame.transform.scale(self.droite,[30,30])
@@ -96,7 +99,15 @@ class Perso:
 		self.direction = self.droite
 		#Niveau dans lequel le personnage se trouve 
 		self.niveau = niveau
+		self.chasse= mou
 	
+	def chasseur(self,listesushi):
+		for couple in listepos:
+			if couple in listesushi:
+				self.chasse=agressif
+				listesushi.remove(couple)
+			time.sleep(7.0)
+			self.chasse=mou
 	
 	def deplacer(self, direction):
 		"""Methode permettant de déplacer le personnage"""
@@ -137,8 +148,15 @@ class Perso:
 					self.case_y += 1
 					self.y = self.case_y * taille_sprite
 			self.direction = self.bas
-
-
+		
+	def mangerfantome(self, agressif, Ghost):
+		if self.chasse=agressif:
+			for couple in listepos:
+				if couple==(Ghost.x,Ghost.y):
+					Ghost.x=10
+					Ghost.y=10
+			
+	
 class Ghost:
      def __init__(self, droite, gauche, haut, bas, niveau):
         #Sprites du personnage
